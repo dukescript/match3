@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!--Important for app like behaviour on mobile-->
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+        <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div id="level" >
+
+            <!--show how many moves are left-->
+            <div id="moves-board" data-bind="text: moves"></div>
+
+            <!--show current score-->
+            <div id="score-board" data-bind="text: score"></div>
+
+            <!--Background Tiles above and before Playfield-->
+            <div class="grass-tile-2"></div>
+            <div class="grass-tile-3"></div>
+            <div class="grass-tile-4"></div>
+            <div class="grass-tile-6"></div>
+
+            <!--Playfield-->
+            <div id="grid" data-bind="foreach: tiles, css: {play: play}">
+                <div class="tile" 
+                     data-bind="moveable: $parent.move, 
+                                css: 'tile-position-'+$index()+' tile-type-'+type(),
+                                swap: swap,
+                                drop: drop, 
+                                explode: explode">
+                </div>
+            </div>
+
+            <!--Background Tiles-->
+            <div class="grass-tile-7"></div>
+            <div class="grass-tile-9"></div>
+            <div class="grass-tile-10">
+
+                <!--Show Score Progress with Stars-->
+                <div id="progressContainer">
+                    <progress id="progress" data-bind="attr: {value: score, max: 5000}"></progress>
+                </div>
+
+                <!--Show how many Monsters you need to delete to meet the goal-->
+                <div id="goal-board" data-bind="with: goal">
+                    <div class="small-icon tile goal-1" data-bind="css: 'tile-type-'+type1()"><span class="delete-goal-text" data-bind="text: toDelete1"></span></div>
+                    <div class="small-icon tile goal-2" data-bind="css: 'tile-type-'+type2()"><span class="delete-goal-text" data-bind="text: toDelete2"></span></div>
+                    <div class="small-icon tile goal-3" data-bind="css: 'tile-type-'+type3()"><span class="delete-goal-text" data-bind="text: toDelete3"></span></div>
+                </div>
+
+            </div>          
+            <div class="grass-tile-11"></div>
+
+
+            <div id="result" data-bind="css: goal().solved()? 'success':'failure',
+                                         visible: goal().solved() || finished()"> 
+                <span data-bind="text:score"></span>
+                <div id="retry" data-bind="click: restart"></div>
+            </div>
+
+        </div>
+
+        <!--Important for touch on mobile-->
+        <script type="text/javascript" >
+    document.ontouchmove = function (event) {
+        event.preventDefault();
+    };
+        </script>
+        <!-- ${browser.bootstrap} -->
+    </body>
+</html>

@@ -1,0 +1,412 @@
+@-webkit-keyframes play {
+    100% { background-position-y: 66.66% }
+}
+
+@-webkit-keyframes explode {
+    100% { background-position-y: -400% }    
+}
+
+@font-face { 
+    font-family: "BUBBLEGUM"; 
+    src: url("Bubblegum.ttf"); 
+}
+
+#result{
+    color: white;
+    text-align: center;
+    padding-top: 29.8vh;
+    position: absolute;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 50vh;
+    height: 41.7vh;
+    margin-left: auto;
+    margin-right: auto;
+    top: 25vh;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+#result.success{
+    background-image: url('../assets/you-won-1.png');
+}
+
+#result.failure{
+    background-image: url('../assets/you-loose.png');
+}
+
+#retry{
+    background-image: url('../assets/retry.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+body{
+    -webkit-user-select: none;
+    font-family: BUBBLEGUM;
+    background: #402306;
+    /*background-image: url('../assets/game_tile-0.png');*/
+    background-repeat: repeat;
+}
+
+#moves-board{
+    position: absolute;
+    color: #59B300;
+    text-align: center;
+    background-image: url('../assets/moves-board.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+#goal-board{
+    position: absolute;
+    color: #59B300;
+    text-align: center;
+    left: 0;
+    background-image: url('../assets/goal-board.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+#score-board{
+    position: absolute;
+    color: #ffffff;
+    text-align: center;
+    background-image: url('../assets/score-board.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+#progressContainer{
+    background-image: url('../assets/progress.png');
+    background-size: contain;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align:middle;
+    display: block;
+    background-repeat: no-repeat;
+}
+
+#progress{
+    position: absolute;
+    border-radius: 10px;
+}
+
+#progress::-webkit-progress-bar {
+    background: transparent;
+}
+
+#progress::-webkit-progress-value {
+    border-radius: 10px;
+    background: #8dff00;
+}
+
+#level{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    background: #402306;
+}
+
+.grass-tile-2{
+    background-size: contain;
+    display: block;
+    float: left;
+    background-image: url('../assets/game_tile-14.png');
+    background-repeat: no-repeat;
+}
+
+.grass-tile-3{
+    background-size: contain;
+    position: relative;
+    display: block;
+    float: left;
+    background-image: url('../assets/game_tile-10.png');
+    background-repeat: repeat-x;
+}
+
+.grass-tile-4{
+    background-size: contain;
+    display: block;
+    float: left;
+    background-image: url('../assets/game_tile-13.png');
+    background-repeat: no-repeat;
+}
+
+
+.grass-tile-6{
+    background-size: contain;
+    position: relative;
+    display: block;
+    float: left;
+    background-image: url('../assets/game_tile-3.png');
+    background-repeat: repeat-y;
+}
+
+.grass-tile-7{
+    background-size: contain;
+    position: relative;
+    display: block;
+    float: left;
+    background-image: url('../assets/game_tile-2.png');
+    background-repeat: repeat-y;
+}
+
+.grass-tile-9{
+    background-size: contain;
+    display: block;
+    float: left;
+    background-image: url('../assets/game_tile-5.png');
+    background-repeat: no-repeat;
+}
+
+.grass-tile-10{
+    background-size: contain;
+    position: relative;
+    display: block;
+    float: left;
+    background-image: url('../assets/game_tile-17.png');
+    background-repeat: repeat-x;
+}
+
+.grass-tile-11{
+    background-size: contain;
+    display: block;
+    float: left;
+    background-image: url('../assets/game_tile-4.png');
+    background-repeat: no-repeat;
+}
+
+
+#grid {
+    position: relative;   
+    float: left;
+    background-size: 100%;
+    background-image: url('../assets/back_checkerboard.png')
+}
+
+.square{
+    float: left;
+    position: relative;
+    background: #000000;
+    z-index: -1;
+}
+
+.tile{
+    position: absolute;
+    vertical-align: middle;
+    text-align: match-parent;
+    color: #ffffff;
+    background: url('../assets/Monster.png');
+    background-size: 1200% 400%;
+}
+
+#grid.play .tile{
+    -webkit-animation: play 3s steps(2) infinite;
+}
+
+@for $i from 0 through  5{
+    $xPos: $i/(11)*100;
+    .tile.tile-type-#{$i}{
+        background-position: #{$xPos}% 0;
+    }
+}
+
+#grid .tile.explode{
+    -webkit-animation: explode .3s steps(4);
+}
+
+@for $i from 0 through  5{
+    $xPos: ($i + 6)/(11)*100;
+    .tile.tile-type-#{$i}.explode{
+        background-position: #{$xPos}% 0;
+    }
+}
+
+.tile.tile-type--1{
+    background: none;
+}
+
+$orientations: ('portrait':"vw",'landscape':'vh');
+
+@each $orientation,$unit in $orientations{
+
+    @media screen and (orientation: $orientation){
+        $tile_size: 8.75;
+        $num_tiles: 8;
+
+        #level{
+            width: 100+unquote($unit);
+            height: 100+unquote($unit)
+        }
+        
+        #retry{
+            width: 5+unquote($unit);
+            height: 5+unquote($unit)
+        }
+
+        #grid{
+            width: 70+unquote($unit);
+            height: 70+unquote($unit);
+        }
+
+        #progressContainer{
+            width: 52.8+unquote($unit);
+            height: 7.5+unquote($unit);
+            margin-top: 4.5+unquote($unit);
+        }
+
+        #progress{
+            left: 5.7+unquote($unit);
+            top: 1.1+unquote($unit);
+            width: 43.5+unquote($unit);
+            height: 2+unquote($unit);
+        }
+
+        .square{
+            width: $tile_size+unquote($unit);
+            height: $tile_size+unquote($unit);
+        }
+
+        #moves-board{
+            left: 5+unquote($unit);
+            font-size:3+unquote($unit);
+            width: 15+unquote($unit);
+            height: 8+unquote($unit);
+            padding-top: 5.5+unquote($unit);
+        }
+
+        #score-board{
+            right: 5+unquote($unit);
+            width: 15+unquote($unit);
+            height: 8+unquote($unit);
+            padding-top: 2.5+unquote($unit);
+            font-size:3+unquote($unit);
+        }
+
+        .grass-tile-2{
+            height: 15+unquote($unit);
+            width: 15+unquote($unit);
+        }
+
+        .grass-tile-3{
+            height: 15+unquote($unit);
+            width: 70+unquote($unit);
+        }
+        .grass-tile-4{
+            height: 15+unquote($unit);
+            width: 15+unquote($unit);
+        }
+
+        .grass-tile-6{
+            height: 70+unquote($unit);
+            width: 15+unquote($unit);
+        }
+
+        .grass-tile-7{
+            height: 70+unquote($unit);
+            width: 15+unquote($unit);
+        }
+
+        .grass-tile-9{
+            height: 15+unquote($unit);
+            width: 15+unquote($unit);
+        }
+
+        .grass-tile-10{
+            height: 15+unquote($unit);
+            width: 70+unquote($unit);
+        }
+
+        .grass-tile-11{
+            height: 15+unquote($unit);
+            width: 15+unquote($unit);
+        }
+
+        .square.even{
+            margin-right: $tile_size+unquote($unit);
+        }
+
+        .square.odd{
+            margin-left: $tile_size+unquote($unit);
+        }
+
+        .tile{
+            height: $tile_size+unquote($unit);
+            width: $tile_size+unquote($unit);   
+        }
+
+        #goal-board{
+            font-size:2+unquote($unit);
+            top: 3+unquote($unit);
+            width: 15+unquote($unit);
+            height: 11+unquote($unit);
+        }
+
+        .tile.small-icon{
+            height: 4+unquote($unit);
+            width: 4+unquote($unit);   
+        }
+
+        .tile.small-icon.goal-1{
+            left:1.5+unquote($unit);  
+            bottom: 3.5+unquote($unit);
+        }
+
+        .tile.small-icon.goal-2{
+            right:1.5+unquote($unit);
+            bottom:3.5+unquote($unit);
+        }
+
+        .tile.small-icon.goal-3{
+            margin-left: auto;
+            margin-right: auto;
+            right:0;
+            left:0;
+            top:1+unquote($unit);
+        }
+
+        .delete-goal-text{
+            margin-top: 4+unquote($unit);
+            display: block;
+        }
+
+        @for $i from 0 through  63{
+            
+            $top: floor($i / 8)*$tile_size;
+            $left: floor($i % 8)*$tile_size;
+
+            .tile.tile-position-#{$i} {
+                top: $top+unquote($unit); 
+                left: $left+unquote($unit);
+            }
+
+            .tile.tile-position-#{$i}.up {
+                top: ($top -$tile_size)+unquote($unit);
+            }
+            .tile.tile-position-#{$i}.down {
+                top: ($top +$tile_size)+unquote($unit);
+            }
+            .tile.tile-position-#{$i}.left { 
+                left: ($left -$tile_size)+unquote($unit);
+            }
+            .tile.tile-position-#{$i}.right {
+                left: ($left +$tile_size)+unquote($unit);
+            }
+        }
+
+        @for $i from -8 through  8{
+            $xPos: ($i*$tile_size);
+            .tile.drop-#{$i}{
+                top: #{$xPos}unquote($unit);
+            }
+        }
+    }
+
+}
