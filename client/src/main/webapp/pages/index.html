@@ -53,12 +53,12 @@
             </div>          
             <div class="grass-tile-11"></div>
 
-
             <div id="result" data-bind="css: goal().solved()? 'success':'failure',
                                          visible: goal().solved() || finished()"> 
                 <span data-bind="text:score"></span>
                 <div id="retry" data-bind="click: restart"></div>
             </div>
+            <div id="title" data-bind="visible: !loaded()"></div> 
 
         </div>
 

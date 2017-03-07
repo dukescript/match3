@@ -29,6 +29,7 @@ import net.java.html.json.Property;
  * @author antonepple
  */
 @Model(className = "Level", properties = {
+    @Property(name="loaded", type=boolean.class),
     @Property(name = "columns", type = int.class),
     @Property(name = "rows", type = int.class),
     @Property(name = "tiles", type = Tile.class, array = true),
@@ -52,7 +53,7 @@ class LevelVM {
         SwapBinding.init();
         DropBinding.init();
         MoveableBinding.init();
-        Level level = new Level(8, 8, false, 0, 0, 5, 1, new Goal(1, 2, 3, 5, 6, 7, 0, 0, 0, 0, 0, 0));
+        Level level = new Level(true,8, 8, false, 0, 0, 5, 1, new Goal(1, 2, 3, 5, 6, 7, 0, 0, 0, 0, 0, 0));
         level.init();
         level.applyBindings();
     }

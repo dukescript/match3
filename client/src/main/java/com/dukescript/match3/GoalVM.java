@@ -30,12 +30,6 @@ class GoalVM {
         return deletedTiles.get(type1) >= num1 && deletedTiles.get(type2) >= num2 && deletedTiles.get(type3) >= num3;
     }
 
-    @ModelOperation
-    public static void delete(Goal goal, int type) {
-        List<Integer> deletedTiles = goal.getDeletedTiles();
-        deletedTiles.set(type, deletedTiles.get(type) + 1);
-    }
-
     @ComputedProperty
     public static int toDelete1(List<Integer> deletedTiles, int type1, int num1) {
         return num1 - deletedTiles.get(type1) < 0 ? 0 : num1 - deletedTiles.get(type1);
@@ -45,10 +39,16 @@ class GoalVM {
     public static int toDelete2(List<Integer> deletedTiles, int type2, int num2) {
         return num2 - deletedTiles.get(type2) < 0 ? 0 : num2 - deletedTiles.get(type2);
     }
-
+    
     @ComputedProperty
     public static int toDelete3(List<Integer> deletedTiles, int type3, int num3) {
         return num3 - deletedTiles.get(type3) < 0 ? 0 : num3 - deletedTiles.get(type3);
     }
     
+    @ModelOperation
+    public static void delete(Goal goal, int type) {
+        List<Integer> deletedTiles = goal.getDeletedTiles();
+        deletedTiles.set(type, deletedTiles.get(type) + 1);
+    }
+   
 }

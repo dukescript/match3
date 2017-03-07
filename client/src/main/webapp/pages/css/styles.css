@@ -7,6 +7,20 @@
 @font-face {
   font-family: "BUBBLEGUM";
   src: url("Bubblegum.ttf"); }
+
+#title {
+    position: absolute;
+    top: 0;
+    left:0;
+    background-color: black;
+    background-image: url("../assets/title.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 100vh;
+    height:100vh;
+    z-index: 10;
+}
+
 #result {
   color: white;
   text-align: center;

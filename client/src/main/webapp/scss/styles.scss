@@ -11,6 +11,22 @@
     src: url("Bubblegum.ttf"); 
 }
 
+#title {
+    background-color: black;
+    background-image: url("../assets/title.png");
+    padding-top: 0;
+    position: absolute;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 100vh;
+    height:100vh;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
 #result{
     color: white;
     text-align: center;
